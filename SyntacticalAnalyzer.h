@@ -13,20 +13,20 @@ class SyntacticalAnalyzer
 	SyntacticalAnalyzer (char * filename);
 	~SyntacticalAnalyzer ();
 
-	program();
-	more_defines();
-	define();
-	stmt_list();
-	stmt();
-	literal();
-	quoted_lit();
-	more_tokens();
-	param_list();
-	else_part();
-	stmt_pair();
-	stmt_pair_body();
-	action();
-	any_other_token();
+	int program();
+	int more_defines();
+	int define();
+	int stmt_list();
+	int stmt();
+	int literal();
+	int quoted_lit();
+	int more_tokens();
+	int param_list();
+	int else_part();
+	int stmt_pair();
+	int stmt_pair_body();
+	int action();
+	int any_other_token();
  private:
 	LexicalAnalyzer * lex;
 	token_type token;
