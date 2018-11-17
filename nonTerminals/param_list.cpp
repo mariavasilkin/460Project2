@@ -20,7 +20,6 @@ void SyntacticalAnalyzer::param_list() {
     string message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(message);
   }
-  
+
   write_project_exit(function_name);
-  return;
 }

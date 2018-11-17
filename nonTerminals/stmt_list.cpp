@@ -1,6 +1,6 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::stmt_list() {
+void SyntacticalAnalyzer::stmt_list() {
   string function_name = "Stmt_List";
   write_project_enter(function_name);
 
@@ -24,7 +24,6 @@ int SyntacticalAnalyzer::stmt_list() {
     string error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(error_message);
   }
-  
+
   write_project_exit(function_name);
-  return;
 }

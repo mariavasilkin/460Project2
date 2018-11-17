@@ -1,6 +1,6 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::stmt_pair() {
+void SyntacticalAnalyzer::stmt_pair() {
   string function_name = "Stmt_Pair";
   write_project_enter(function_name);
 
@@ -26,5 +26,4 @@ int SyntacticalAnalyzer::stmt_pair() {
   }
 
   write_project_exit(function_name);
-  return;
 }

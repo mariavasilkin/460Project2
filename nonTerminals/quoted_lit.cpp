@@ -1,6 +1,6 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::quoted_lit() {
+void SyntacticalAnalyzer::quoted_lit() {
   string function_name = "Quoted_Lit";
   write_project_enter(function_name);
 
@@ -17,5 +17,4 @@ int SyntacticalAnalyzer::quoted_lit() {
   }
 
   write_project_rule(function_name);
-  return;
 }

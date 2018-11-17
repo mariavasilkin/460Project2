@@ -1,34 +1,33 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::program() {
-    int errors = 0;
+void SyntacticalAnalyzer::program() {
     string function_name = "Program";
+    string error_message = "";
     write_project_enter(function_name);
-        
+
     if (token == LPAREN_T) {
       // apply rule 1
       // <program> -> LPAREN_T <define> LPAREN_T <more_defines> EOF_T
       write_project_rule(1);
-      
+
       token = lex->GetToken();
-      errors += define();
+      define();
       if (token == LPAREN_T) {
 	token = lex->GetToken();
       } else {
-	report_error();
-	errors++;
+          error_message = "LPAREN_T expected";
+          lex->ReportError(error_message);
       }
-      errors += more_defines();
+      more_defines();
       if (token == EOF_T) {
       } else {
-	report_error();
-	errors++;
+          error_message = "EOF_T expected";
+          lex->ReportError(error_message);
       }
-    } else { 
-      report_error();
-      errors++;
+    } else {
+        error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+        lex->ReportError(error_message);
     }
-    
+
     write_project_enter(function_name);
-    return errors;
 }
