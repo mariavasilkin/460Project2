@@ -10,11 +10,50 @@ SetLimits.o : SetLimits.cpp SetLimits.h
 LexicalAnalyzer.o : LexicalAnalyzer.cpp LexicalAnalyzer.h
 	g++ -g -c LexicalAnalyzer.cpp
 
-nonTerminal.o: action.cpp define.cpp literal.cpp more_tokens.cpp program.cpp stmt.cpp stmt_pair_body.cpp any_other_token.cpp else_part.cpp more_defines.cpp param_list.cpp quoted_lit.cpp stmt_list.cpp stmt_pair.cpp
-	g++ -g -c action.cpp define.cpp literal.cpp more_tokens.cpp program.cpp stmt.cpp stmt_pair_body.cpp any_other_token.cpp else_part.cpp more_defines.cpp param_list.cpp quoted_lit.cpp stmt_list.cpp stmt_pair.cpp
+SyntacticalAnalyzer.o : SyntacticalAnalyzer.cpp SyntacticalAnalyzer.h LexicalAnalyzer.h action.o define.o literal.o more_tokens.o program.o stmt.o stmt_pair.o any_other_token.o else_part.o more_defines.o param_list.o quoted_lit.o stmt_list.o stmt_pair.o 
+	g++ -g -c SyntacticalAnalyzer.cpp action.o define.o literal.o more_tokens.o program.o stmt.o stmt_pair.o any_other_token.o else_part.o more_defines.o param_list.o quoted_lit.o stmt_list.o stmt_pair.o  
 
-SyntacticalAnalyzer.o : SyntacticalAnalyzer.cpp SyntacticalAnalyzer.h LexicalAnalyzer.h nonTerminal.o
-	g++ -g -c SyntacticalAnalyzer.cpp nonTerminal.o
+action.o : action.cpp
+	g++ -g action.cpp
+
+define.o: define.cpp
+	g++ -g define.cpp
+
+literal.o: literal.cpp
+	g++ -g literal.cpp
+
+more_tokens.o: more_tokens.cpp
+	g++ -g more_tokens.cpp
+
+program.o: program.cpp
+	g++ -g program.cpp
+
+stmt.o: stmt.cpp
+	g++ -g stmt.cpp
+
+stmt_pair_body.o: stmt_pair_body.cpp
+	g++ -g stmt_pair_body.cpp
+
+any_other_token.o: any_other_token.cpp
+	g++ -g any_other_token.cpp
+
+else_part.o: else_part.cpp
+	g++ -g else_part.cpp
+
+more_defines.o: more_defines.cpp
+	g++ -g more_defines.cpp
+
+param_list.o: param_list.cpp
+	g++ -g param_list.cpp
+
+quoted_lit.o: quoted_lit.cpp
+	g++ -g quoted_lit.cpp
+
+stmt_list.o: stmt_list.cpp
+	g++ -g stmt_list.cpp
+
+stmt_pair.o: stmt_pair.cpp
+	g++ -g stmt_pair.cpp
 
 clean :
 	rm *.o P2.out *.gch
