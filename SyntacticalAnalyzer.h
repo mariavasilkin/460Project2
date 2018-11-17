@@ -13,39 +13,29 @@ class SyntacticalAnalyzer
 	SyntacticalAnalyzer (char * filename);
 	~SyntacticalAnalyzer ();
 
-	void write_project_enter (string _function_name);
-	void write_project_rule (int rule);
-	void write_project_exit (string _function_name);
-
-	int program();
-	int more_defines();
-	int define();
-	int stmt_list();
-	int stmt();
-	int literal();
-	int quoted_lit();
-	int more_tokens();
-	int param_list();
-	int else_part();
-	int stmt_pair();
-	int stmt_pair_body();
-	int action();
-	int any_other_token();
  private:
 	LexicalAnalyzer * lex;
 	token_type token;
 
-	string action_tokens [] = {"IF_T", "COND_T", "LISTOP_T", "CONS_T", "AND_T", "OR_T", "NOT_T",
-				   "NUMBERP_T", "LISTP_T", "ZEROP_T", "NULLP_T", "STRINGP_T", "PLUS_T",
-				   "MINUS_T", "DIV_T", "MULT_T", "MODULO_T", "ROUND_T", "EQUALTO_T",
-				   "GT_T", "LT_T", "GTE_T", "LTE_T", "IDENT_T", "DISPLAY_T", "NEWLINE_T"};
+	void write_project_enter (string _function_name);
+        void write_project_rule (int rule);
+        void write_project_exit (string _function_name);
 
-	string any_other_tokens [] = {"LPAREN_T", "IDENT_T", "NUMLIT_T", "STRLIT_T", "CONS_T", "IF_T",
-				      "DISPLAY_T", "NEWLINE_T", "LISTOP_T", "AND_T", "OR_T","NOT_T",
-				      "DEFINE_T", "NUMBERP_T", "LISTP_T", "ZEROP_T", "NULLP_T", "STRINGP_T",
-				      "PLUS_T", "MINUS_T", "DIV_T", "MULT_T", "MODULO_T", "ROUND_T",
-				      "EQUALTO_T", "GT_T", "LT_T", "GTE_T", "LTE_T", "QUOTE_T", "COND_T", "ELSE_T"};
-
+        void program();
+        void more_defines();
+        void define();
+        void stmt_list();
+        void stmt();
+        void literal();
+        void quoted_lit();
+        void more_tokens();
+        void param_list();
+        void else_part();
+        void stmt_pair();
+        void stmt_pair_body();
+        void action();
+        void any_other_token();
+	
 	bool is_action (string _token_name);
 	bool is_any_other (string _token_name);
 	
