@@ -1,15 +1,14 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::stmt() {
-  int errors = 0;
+void SyntacticalAnalyzer::stmt() {
   string function_name = "Stmt";
-
+  string error_message = "";
   write_project_enter(function_name);
   if (token == NUMLIT_T || token == STRLIT_T || token == SQUOTE_T) {
     // apply rule 7
     // <stmt> -> <literal>
     write_project_rule(7);
-    errors += literal();
+    literal();
   }
 
   else if (token == IDENT_T) {
@@ -26,19 +25,18 @@ int SyntacticalAnalyzer::stmt() {
     write_project_rule(9);
 
     token = lex->GetToken();
-    errors += action();
+    action();
     if (token == RPAREN_T) {
       token = lex->GetToken();
     } else {
-      report_error();
+        error_message = "RPAREN_T expected";
+        lex->ReportError(error_message);
     }
   }
 
   else {
-    report_error();
-    errors++;
+      error_message = "RPAREN_T expected";
+      lex->ReportError(error_message);
   }
-
   write_project_exit(function_name);
-  return errors;
 }

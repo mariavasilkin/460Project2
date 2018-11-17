@@ -1,8 +1,8 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::define() {
-    int errors = 0;
+void SyntacticalAnalyzer::define() {
     string function_name = "Define";
+    string error_message = "";
     write_project_enter(function_name);
 
     //checking rule 4
@@ -10,35 +10,38 @@ int SyntacticalAnalyzer::define() {
       // applying rule 4
       //<define> -> DEFINE_T LPAREN_T IDENT_T <param_list> RPAREN_T <stmt> <stmt_list> RPAREN_T
       write_project_rule(4);
-      
+
       token = lex->GetToken();
       if (token == LPAREN_T) {
 	token = lex->GetToken();
       } else {
-	
-	errors++;
+          error_message = "LPAREN_T expected";
+          lex->ReportError(error_message);
       }
       if (token == IDENT_T) {
 	  token = lex->GetToken();
       } else {
-	errors++;
+          error_message = "IDENT_T expected";
+          lex->ReportError(error_message);
       }
-      errors += param_list();
+      param_list();
       if (token == RPAREN_T) {
 	token = lex->GetToken();
       } else {
-	errors++;
+          error_message = "RPAREN_T expected";
+          lex->ReportError(error_message);
       }
-      errors += stmt();
-      errors += stmt_list();
+      stmt();
+      stmt_list();
       if (token == RPAREN_T) {
 	  token = lex->GetToken();
       } else {
-	errors++;
+          error_message = "RPAREN_T expected";
+          lex->ReportError(error_message);
       }
-    } else {   
-      errors++;
+    } else {
+        error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+        lex->ReportError(error_message);
     }
     write_project_rule(function_name);
-    return errors;
 }

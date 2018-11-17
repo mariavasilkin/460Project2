@@ -1,14 +1,14 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::literal() {
-  int errors = 0;
+void SyntacticalAnalyzer::literal() {
   string function_name = "Literal";
+  string error_message = "";
   write_project_enter(function_name);
   if (token == NUMLIT_T) {
     // apply rule 10
     // <literal> -> NUMLIT_T
     write_project_rule(10);
-    
+
     token = lex->GetToken();
   }
 
@@ -26,13 +26,12 @@ int SyntacticalAnalyzer::literal() {
     write_project_rule(12);
 
     token = lex->GetToken();
-    errors += quoted_lit();
+    quoted_lit();
   }
 
   else {
-    report_error();
+      error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+      lex->ReportError(error_message);
   }
-
   write_project_exit(function_name);
-  return errors;
 }

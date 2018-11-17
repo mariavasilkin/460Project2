@@ -1,10 +1,8 @@
 #include "../SyntacticalAnalyzer.h"
 
-int SyntacticalAnalyzer::stmt_pair_body() {
-  int errors = 0;
+void SyntacticalAnalyzer::stmt_pair_body() {
   string function_name = "Stmt_Pair_Body";
   string error_message = "";
-  
   write_function_enter(function_name);
   if (token == ELSE_T) {
     // apply rule 23
@@ -12,13 +10,12 @@ int SyntacticalAnalyzer::stmt_pair_body() {
     write_project_rule(23);
 
     token = lex->GetToken();
-    errors += stmt();
+    stmt();
     if (token == RPAREN_T) {
       token = lex->GetToken();
     } else {
       error_message = "RPAREN_T expected";
       lex->ReportError(error_message);
-      errors++;
     }
   }
 
@@ -26,21 +23,20 @@ int SyntacticalAnalyzer::stmt_pair_body() {
     // apply rule 22
     // <stmt_pair_body> -> <stmt> <stmt> RPAREN_T <stmt_pair>
     write_project_rule(22);
-    
-    errors += stmt();
-    errors += stmt();
+
+    stmt();
+    stmt();
     if (token == RPAREN_T) {
       token = lex->GetToken();
     } else {
       error_message = "RPAREN_T expected";
       lex->ReportError(error_message);
     }
-    errors += stmt_pair();
+    stmt_pair();
   }
 
   else {
     error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(error_message);
-    errors++;
   }
 }
