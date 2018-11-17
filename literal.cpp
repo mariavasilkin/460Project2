@@ -1,4 +1,4 @@
-#include "../SyntacticalAnalyzer.h"
+#include "SyntacticalAnalyzer.h"
 
 void SyntacticalAnalyzer::literal() {
   string function_name = "Literal";

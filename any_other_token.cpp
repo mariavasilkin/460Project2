@@ -1,4 +1,4 @@
-#include "../SyntacticalAnalyzer.h"
+#include "SyntacticalAnalyzer.h"
 
 void SyntacticalAnalyzer::any_other_token() {
   string function_name = "Any_Other_Token";

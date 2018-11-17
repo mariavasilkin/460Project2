@@ -1,4 +1,4 @@
-#include "../SyntacticalAnalyzer.h"
+#include "SyntacticalAnalyzer.h"
 
 void SyntacticalAnalyzer::param_list() {
   string function_name = "Param_List";

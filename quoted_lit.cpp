@@ -1,4 +1,4 @@
-#include "../SyntacticalAnalyzer.h"
+#include "SyntacticalAnalyzer.h"
 
 void SyntacticalAnalyzer::quoted_lit() {
   string function_name = "Quoted_Lit";

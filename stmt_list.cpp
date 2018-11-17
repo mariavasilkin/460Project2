@@ -1,4 +1,4 @@
-#include "../SyntacticalAnalyzer.h"
+#include "SyntacticalAnalyzer.h"
 
 void SyntacticalAnalyzer::stmt_list() {
   string function_name = "Stmt_List";

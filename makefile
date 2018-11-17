@@ -10,13 +10,16 @@ SetLimits.o : SetLimits.cpp SetLimits.h
 LexicalAnalyzer.o : LexicalAnalyzer.cpp LexicalAnalyzer.h
 	g++ -g -c LexicalAnalyzer.cpp
 
-SyntacticalAnalyzer.o : SyntacticalAnalyzer.cpp SyntacticalAnalyzer.h nonTerminals/action.cpp nonTerminals/define.cpp nonTerminals/literal.cpp nonTerminals/more_tokens.cpp nonTerminals/program.cpp nonTerminals/stmt.cpp nonTerminals/stmt_pair_body.cpp nonTerminals/any_other_token.cpp nonTerminals/else_part.cpp nonTerminals/more_defines.cpp nonTerminals/param_list.cpp nonTerminals/quoted_lit.cpp nonTerminals/stmt_list.cpp nonTerminals/stmt_pair.cpp LexicalAnalyzer.h
-	g++ -g -c SyntacticalAnalyzer.cpp
+nonTerminal.o: action.cpp define.cpp literal.cpp more_tokens.cpp program.cpp stmt.cpp stmt_pair_body.cpp any_other_token.cpp else_part.cpp more_defines.cpp param_list.cpp quoted_lit.cpp stmt_list.cpp stmt_pair.cpp
+	g++ -g -c action.cpp define.cpp literal.cpp more_tokens.cpp program.cpp stmt.cpp stmt_pair_body.cpp any_other_token.cpp else_part.cpp more_defines.cpp param_list.cpp quoted_lit.cpp stmt_list.cpp stmt_pair.cpp
 
-clean : 
+SyntacticalAnalyzer.o : SyntacticalAnalyzer.cpp SyntacticalAnalyzer.h LexicalAnalyzer.h nonTerminal.o
+	g++ -g -c SyntacticalAnalyzer.cpp nonTerminal.o
+
+clean :
 	rm *.o P2.out *.gch
 
-submit : Project2.cpp LexicalAnalyzer.h LexicalAnalyzer.cpp SyntacticalAnalyzer.h SyntacticalAnalyzer.cpp nonTerminals/action.cpp nonTerminals/define.cpp nonTerminals/literal.cpp nonTerminals/more_tokens.cpp nonTerminals/program.cpp nonTerminals/stmt.cpp nonTerminals/stmt_pair_body.cpp nonTerminals/any_other_token.cpp nonTerminals/else_part.cpp nonTerminals/more_defines.cpp nonTerminals/param_list.cpp nonTerminals/quoted_lit.cpp nonTerminals/stmt_list.cpp nonTerminals/stmt_pair.cpp  makefile README.txt
+submit : Project2.cpp LexicalAnalyzer.h LexicalAnalyzer.cpp SyntacticalAnalyzer.h SyntacticalAnalyzer.cpp /nonTerminals/action.cpp /nonTerminals/define.cpp /nonTerminals/literal.cpp /nonTerminals/more_tokens.cpp /nonTerminals/program.cpp /nonTerminals/stmt.cpp /nonTerminals/stmt_pair_body.cpp /nonTerminals/any_other_token.cpp /nonTerminals/else_part.cpp /nonTerminals/more_defines.cpp /nonTerminals/param_list.cpp /nonTerminals/quoted_lit.cpp /nonTerminals/stmt_list.cpp /nonTerminals/stmt_pair.cpp  makefile README.txt
 	rm -rf WP2
 	mkdir WP2
 	cp Project2.cpp WP2
