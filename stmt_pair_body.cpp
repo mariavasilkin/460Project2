@@ -3,7 +3,7 @@
 void SyntacticalAnalyzer::stmt_pair_body() {
   string function_name = "Stmt_Pair_Body";
   string error_message = "";
-  write_function_enter(function_name);
+  write_project_enter(function_name);
   if (token == ELSE_T) {
     // apply rule 23
     // <stmt_pair_body> -> ELSE_T <stmt> RPAREN_T

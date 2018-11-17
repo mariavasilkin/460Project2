@@ -16,5 +16,5 @@ void SyntacticalAnalyzer::quoted_lit() {
     lex->ReportError(error_message);
   }
 
-  write_project_rule(function_name);
+  //write_project_rule(function_name);
 }

@@ -3,7 +3,7 @@
 void SyntacticalAnalyzer::any_other_token() {
   string function_name = "Any_Other_Token";
   string error_message = "";
-  write_function_enter(function_name);
+  write_project_enter(function_name);
 
   if (token == LPAREN_T) {
     // apply rule 50
@@ -113,7 +113,7 @@ void SyntacticalAnalyzer::any_other_token() {
     // <any_other_token> -> DEFINE_T
     write_project_rule(62);
 
-    token = lex->GetTOken();
+    token = lex->GetToken();
   }
 
   else if (token == NUMBERP_T) {

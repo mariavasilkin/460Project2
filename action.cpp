@@ -22,7 +22,7 @@ void SyntacticalAnalyzer::action() {
     write_project_rule(25);
 
     token = lex->GetToken();
-    if (token == LPARENT_T) {
+    if (token == LPAREN_T) {
       token = lex->GetToken();
     } else {
         error_message = "LPAREN_T expected";
@@ -56,7 +56,7 @@ void SyntacticalAnalyzer::action() {
     write_project_rule(28);
 
     token = lex->GetToken();
-    stmt_list():
+    stmt_list();
   }
 
   else if (token == OR_T) {
@@ -77,7 +77,7 @@ void SyntacticalAnalyzer::action() {
     stmt();
   }
 
-  else if (token == NUMBER_P) {
+  else if (token == NUMBERP_T) {
     // apply rule 31
     // <action> -> NUMBERP_T <stmt>
     write_project_rule(31);
@@ -92,7 +92,7 @@ void SyntacticalAnalyzer::action() {
     write_project_rule(32);
 
     token = lex->GetToken();
-    stmt():
+    stmt();
   }
 
   else if (token == ZEROP_T) {
@@ -127,7 +127,7 @@ void SyntacticalAnalyzer::action() {
     // <action> -> PLUS_T <stmt_list>
     write_project_rule(36);
 
-    token = lex->GetTOken();
+    token = lex->GetToken();
     stmt_list();
   }
 
@@ -203,7 +203,7 @@ void SyntacticalAnalyzer::action() {
     write_project_rule(44);
 
     token = lex->GetToken();
-    stmt_list():
+    stmt_list();
   }
 
   else if (token == GTE_T) {

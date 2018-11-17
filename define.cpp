@@ -43,5 +43,5 @@ void SyntacticalAnalyzer::define() {
         error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
         lex->ReportError(error_message);
     }
-    write_project_rule(function_name);
+    write_project_rule(4);
 }
