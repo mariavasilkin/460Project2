@@ -36,6 +36,24 @@ void SyntacticalAnalyzer::write_project_exit (string _function_name) {
   return;
 }
 
+bool SyntacticalAnalyzer::is_action (string _token_name) {
+  for (int i = 0; i < 26; i++) {
+    if (action_tokens[i] == _token_name) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool SyntacticalAnalyzer::is_any_other (string _token_name) {
+  for (int i = 0; i < ; i++) {
+    if (any_other_tokens[i] == _token_name) {
+      return true;
+    }
+  }
+  return false;
+}
+
 void SyntacticalAnalyzer::report_error() {
   string message = "'" + lex->GetLexeme() + "'" + " unexpected";
   lex->ReportError(message);
