@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::else_part() {
   string function_name = "Else_Part";
   string error_message = "";

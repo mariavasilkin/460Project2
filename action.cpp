@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::action() {
   string function_name = "Action";
   string error_message = "";

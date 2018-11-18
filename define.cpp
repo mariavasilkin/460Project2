@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::define() {
     string function_name = "Define";
     string error_message = "";

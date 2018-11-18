@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::quoted_lit() {
   string function_name = "Quoted_Lit";
   write_project_enter(function_name);

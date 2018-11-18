@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::more_defines() {
     string function_name = "More_Defines";
     string error_message = "";

@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::more_tokens() {
   string function_name = "More_Tokens";
   string error_message = "";

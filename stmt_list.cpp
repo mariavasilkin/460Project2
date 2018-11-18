@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::stmt_list() {
   string function_name = "Stmt_List";
   write_project_enter(function_name);

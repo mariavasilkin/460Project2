@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::stmt() {
   string function_name = "Stmt";
   string error_message = "";

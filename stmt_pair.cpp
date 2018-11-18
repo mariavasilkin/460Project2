@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::stmt_pair() {
   string function_name = "Stmt_Pair";
   write_project_enter(function_name);

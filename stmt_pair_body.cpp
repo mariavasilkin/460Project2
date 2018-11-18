@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::stmt_pair_body() {
   string function_name = "Stmt_Pair_Body";
   string error_message = "";

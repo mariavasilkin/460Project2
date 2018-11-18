@@ -1,5 +1,7 @@
 #include "SyntacticalAnalyzer.h"
 
+using namespace std;
+
 void SyntacticalAnalyzer::param_list() {
   string function_name = "Param_List";
   write_project_enter(function_name);
