@@ -318,6 +318,7 @@ void SyntacticalAnalyzer::action() {
     error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(error_message);
   }
+  write_project_exit(function_name);
 }
 
 void SyntacticalAnalyzer::any_other_token() {
@@ -750,21 +751,21 @@ void SyntacticalAnalyzer::more_defines() {
 void SyntacticalAnalyzer::more_tokens() {
   string function_name = "More_Tokens";
   string error_message = "";
+  bool action = is_action(lex->GetTokenName(token));
+
   write_project_enter(function_name);
+  
   if (token == RPAREN_T) {
     // apply rule 15
     // <more_tokens> -> {}
     write_project_rule(15);
-  } else if (token != RPAREN_T) { // doing this to prevent uneccessary calls to is_action()
-    bool action = is_action(lex->GetTokenName(token));
-    if (action) {
-      // apply rule 14
-      // <more_tokens> -> <any_other_token> <more_tokens>
-      write_project_rule(14);
+  } else if (action) { // doing this to prevent uneccessary calls to is_action()
+    // apply rule 14
+    // <more_tokens> -> <any_other_token> <more_tokens>
+    write_project_rule(14);
 
-      any_other_token();
-      more_tokens();
-    }
+    any_other_token();
+    more_tokens();
   } else {
       error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
       lex->ReportError(error_message);
@@ -826,7 +827,7 @@ void SyntacticalAnalyzer::program() {
         lex->ReportError(error_message);
     }
 
-    write_project_enter(function_name);
+    write_project_exit(function_name);
 }
 
 void SyntacticalAnalyzer::stmt() {
@@ -965,6 +966,7 @@ void SyntacticalAnalyzer::stmt_pair_body() {
     error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(error_message);
   }
+  write_project_exit(function_name);
 }
 
 void SyntacticalAnalyzer::quoted_lit() {
