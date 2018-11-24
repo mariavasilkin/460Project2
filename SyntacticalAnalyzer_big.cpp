@@ -63,10 +63,20 @@ bool SyntacticalAnalyzer::is_any_other (string _token_name) {
   return false;
 }
 
+/*******************
+ACTION; RULES 24-49
+*******************/
+
 void SyntacticalAnalyzer::action() {
   string function_name = "Action";
   string error_message = "";
   write_project_enter (function_name);
+
+  while (!(is_action(lex->GetTokenName(token))) && token != EOF_T) {
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
 
   if (token == IF_T) {
     // apply rule 24
@@ -90,6 +100,7 @@ void SyntacticalAnalyzer::action() {
     } else {
         error_message = "LPAREN_T expected";
         lex->ReportError(error_message);
+        token = lex->GetToken(); // NEW, IS THIS RIGHT? IT FEELS SO WRONG
     }
     stmt_pair_body();
   }
@@ -321,10 +332,19 @@ void SyntacticalAnalyzer::action() {
   write_project_exit(function_name);
 }
 
+/***********************
+ANY_OTHER; RULES: 50-81
+***********************/
 void SyntacticalAnalyzer::any_other_token() {
   string function_name = "Any_Other_Token";
   string error_message = "";
   write_project_enter(function_name);
+
+  while (!(is_any_other(lex->GetTokenName(token))) && token != EOF_T){
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
 
   if (token == LPAREN_T) {
     // apply rule 50
@@ -338,6 +358,7 @@ void SyntacticalAnalyzer::any_other_token() {
     } else {
         error_message = "RPAREN_T expected";
         lex->ReportError(error_message);
+        token = lex->GetToken(); // HERES ANOTHER
     }
   }
 
@@ -597,12 +618,20 @@ void SyntacticalAnalyzer::any_other_token() {
   write_project_exit(function_name);
 }
 
+/****************
+DEFINE; RULES: 4
+****************/
 void SyntacticalAnalyzer::define() {
     string function_name = "Define";
     string error_message = "";
     write_project_enter(function_name);
 
-    //checking rule 4
+    while (token != DEFINE_T && token != EOF_T) {
+      error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+      lex->ReportError(error_message);
+      token = lex->GetToken();
+    }
+
     if (token == DEFINE_T) {
       // applying rule 4
       //<define> -> DEFINE_T LPAREN_T IDENT_T <param_list> RPAREN_T <stmt> <stmt_list> RPAREN_T
@@ -610,43 +639,54 @@ void SyntacticalAnalyzer::define() {
 
       token = lex->GetToken();
       if (token == LPAREN_T) {
-  token = lex->GetToken();
+          token = lex->GetToken();
       } else {
           error_message = "LPAREN_T expected";
           lex->ReportError(error_message);
+          token = lex->GetToken();
       }
       if (token == IDENT_T) {
-    token = lex->GetToken();
+          token = lex->GetToken();
       } else {
           error_message = "IDENT_T expected";
           lex->ReportError(error_message);
+          token = lex->GetToken();
       }
       param_list();
       if (token == RPAREN_T) {
-  token = lex->GetToken();
+          token = lex->GetToken();
       } else {
           error_message = "RPAREN_T expected";
           lex->ReportError(error_message);
+          token = lex->GetToken();
       }
       stmt();
       stmt_list();
       if (token == RPAREN_T) {
-    token = lex->GetToken();
+          token = lex->GetToken();
       } else {
           error_message = "RPAREN_T expected";
           lex->ReportError(error_message);
+          token = lex->GetToken();
       }
     } else {
         error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
         lex->ReportError(error_message);
     }
-    write_project_rule(4);
+    write_project_exit(function_name);
 }
 
 void SyntacticalAnalyzer::else_part() {
   string function_name = "Else_Part";
   string error_message = "";
   write_project_enter(function_name);
+
+  while (token != RPAREN_T && token != NUMLIT_T && token != STRLIT_T && token != SQUOTE_T && token != IDENT_T && token != LPAREN_T && token != EOF_T){
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
+  
   if (token == RPAREN_T) {
     // apply rule 19
     // <else_part> -> {}
@@ -673,6 +713,13 @@ void SyntacticalAnalyzer::literal() {
   string function_name = "Literal";
   string error_message = "";
   write_project_enter(function_name);
+  
+  while (token != NUMLIT_T && token != STRLIT_T && token != SQUOTE_T && token != EOF_T){
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
+
   if (token == NUMLIT_T) {
     // apply rule 10
     // <literal> -> NUMLIT_T
@@ -710,6 +757,12 @@ void SyntacticalAnalyzer::more_defines() {
     string error_message = "";
     write_project_enter(function_name);
 
+    while (token != DEFINE_T && token != IDENT_T && token != EOF_T) {
+      error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+      lex->ReportError(error_message);
+      token = lex->GetToken();
+    }
+
     if (token == DEFINE_T) {
       // apply rule 2
       // <more_defines> -> <define> LPAREN_T <more_defines>
@@ -717,7 +770,7 @@ void SyntacticalAnalyzer::more_defines() {
 
       define();
       if (token == LPAREN_T) {
-  token = lex->GetToken();
+          token = lex->GetToken();
       } else {
           error_message = "LPAREN_T expected";
           lex->ReportError(error_message);
@@ -733,7 +786,7 @@ void SyntacticalAnalyzer::more_defines() {
       token = lex->GetToken();
       stmt_list();
       if (token == RPAREN_T) {
-  token = lex->GetToken();
+        token = lex->GetToken();
       } else {
         error_message = "RPAREN_T expected";
         lex->ReportError(error_message);
@@ -751,15 +804,20 @@ void SyntacticalAnalyzer::more_defines() {
 void SyntacticalAnalyzer::more_tokens() {
   string function_name = "More_Tokens";
   string error_message = "";
-  bool action = is_action(lex->GetTokenName(token));
-
   write_project_enter(function_name);
+
+  bool any_other = false;
+  while (!(any_other = is_any_other(lex->GetTokenName(token))) && token != RPAREN_T && token != EOF_T){
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";      
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
   
   if (token == RPAREN_T) {
     // apply rule 15
     // <more_tokens> -> {}
     write_project_rule(15);
-  } else if (action) { // doing this to prevent uneccessary calls to is_action()
+  } else if (any_other) { // doing this to prevent uneccessary calls to is_action()
     // apply rule 14
     // <more_tokens> -> <any_other_token> <more_tokens>
     write_project_rule(14);
@@ -776,7 +834,14 @@ void SyntacticalAnalyzer::more_tokens() {
 
 void SyntacticalAnalyzer::param_list() {
   string function_name = "Param_List";
+  string error_message = "";
   write_project_enter(function_name);
+
+  while (token != IDENT_T && token != RPAREN_T && token != EOF_T){
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";      
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
 
   if (token == IDENT_T) {
     // apply rule 16
@@ -791,8 +856,8 @@ void SyntacticalAnalyzer::param_list() {
     write_project_rule(17);
 
   } else {
-    string message = "'" + lex->GetLexeme() + "'" + " unexpected";
-    lex->ReportError(message);
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
   }
 
   write_project_exit(function_name);
@@ -803,6 +868,11 @@ void SyntacticalAnalyzer::program() {
     string error_message = "";
     write_project_enter(function_name);
 
+    while (token != LPAREN_T && token != EOF_T) {
+      error_message = "'" + lex->GetLexeme() + "'" + " unexpected";      
+      lex->ReportError(error_message);
+      token = lex->GetToken();
+    }
     if (token == LPAREN_T) {
       // apply rule 1
       // <program> -> LPAREN_T <define> LPAREN_T <more_defines> EOF_T
@@ -811,7 +881,7 @@ void SyntacticalAnalyzer::program() {
       token = lex->GetToken();
       define();
       if (token == LPAREN_T) {
-  token = lex->GetToken();
+        token = lex->GetToken();
       } else {
           error_message = "LPAREN_T expected";
           lex->ReportError(error_message);
@@ -834,6 +904,13 @@ void SyntacticalAnalyzer::stmt() {
   string function_name = "Stmt";
   string error_message = "";
   write_project_enter(function_name);
+
+  while (token != NUMLIT_T && token != STRLIT_T && token != SQUOTE_T && token != IDENT_T && token != LPAREN_T && token != EOF_T) {
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";      
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
+
   if (token == NUMLIT_T || token == STRLIT_T || token == SQUOTE_T) {
     // apply rule 7
     // <stmt> -> <literal>
@@ -861,11 +938,12 @@ void SyntacticalAnalyzer::stmt() {
     } else {
         error_message = "RPAREN_T expected";
         lex->ReportError(error_message);
+        token = lex->GetToken();
     }
   }
 
   else {
-      error_message = "RPAREN_T expected";
+      error_message = "'" + lex->GetLexeme() + "'" + " unexpected";      
       lex->ReportError(error_message);
   }
   write_project_exit(function_name);
@@ -873,7 +951,14 @@ void SyntacticalAnalyzer::stmt() {
 
 void SyntacticalAnalyzer::stmt_list() {
   string function_name = "Stmt_List";
+  string error_message = "";
   write_project_enter(function_name);
+
+  while (token != NUMLIT_T && token != STRLIT_T && token != SQUOTE_T && token != IDENT_T && token != LPAREN_T && token != EOF_T) {
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
 
   if (token == NUMLIT_T || token == STRLIT_T || token == SQUOTE_T || token == IDENT_T || token == LPAREN_T) {
     // apply rule 5
@@ -887,12 +972,12 @@ void SyntacticalAnalyzer::stmt_list() {
   else if (token == RPAREN_T) {
     // apply rule 6
     // <stmt_list> -> {}
-    write_project_rule(5);
+    write_project_rule(6);
 
   }
 
   else {
-    string error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(error_message);
   }
 
@@ -901,7 +986,14 @@ void SyntacticalAnalyzer::stmt_list() {
 
 void SyntacticalAnalyzer::stmt_pair() {
   string function_name = "Stmt_Pair";
+  string error_message = "";
   write_project_enter(function_name);
+
+  while (token != LPAREN_T && token != RPAREN_T && token != EOF_T) {
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
 
   if (token == LPAREN_T) {
     // apply rule 20
@@ -920,7 +1012,7 @@ void SyntacticalAnalyzer::stmt_pair() {
   }
 
   else {
-    string error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
     lex->ReportError(error_message);
   }
 
@@ -931,6 +1023,13 @@ void SyntacticalAnalyzer::stmt_pair_body() {
   string function_name = "Stmt_Pair_Body";
   string error_message = "";
   write_project_enter(function_name);
+
+  while (token != ELSE_T && token != RPAREN_T && token != NUMLIT_T && token != STRLIT_T && token != SQUOTE_T && token != IDENT_T && token != LPAREN_T && token != EOF_T) {
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
+
   if (token == ELSE_T) {
     // apply rule 23
     // <stmt_pair_body> -> ELSE_T <stmt> RPAREN_T
@@ -943,6 +1042,7 @@ void SyntacticalAnalyzer::stmt_pair_body() {
     } else {
       error_message = "RPAREN_T expected";
       lex->ReportError(error_message);
+      token = lex->GetToken();
     }
   }
 
@@ -958,6 +1058,7 @@ void SyntacticalAnalyzer::stmt_pair_body() {
     } else {
       error_message = "RPAREN_T expected";
       lex->ReportError(error_message);
+      token = lex->GetToken();
     }
     stmt_pair();
   }
@@ -971,9 +1072,16 @@ void SyntacticalAnalyzer::stmt_pair_body() {
 
 void SyntacticalAnalyzer::quoted_lit() {
   string function_name = "Quoted_Lit";
+  string error_message = "";
   write_project_enter(function_name);
+  
+  bool any_other = false;
+  while (!(any_other = is_any_other(lex->GetTokenName(token))) && token != EOF_T) {
+    error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
+    lex->ReportError(error_message);
+    token = lex->GetToken();
+  }
 
-  bool any_other = is_any_other(lex->GetTokenName(token));
   if (any_other) {
     // apply rule 13
     // <quoted_lit> -> <any_other_token>
