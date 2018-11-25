@@ -100,7 +100,7 @@ void SyntacticalAnalyzer::action() {
     } else {
         error_message = "LPAREN_T expected";
         lex->ReportError(error_message);
-        token = lex->GetToken(); // NEW, IS THIS RIGHT? IT FEELS SO WRONG
+        token = lex->GetToken();
     }
     stmt_pair_body();
   }
@@ -358,7 +358,6 @@ void SyntacticalAnalyzer::any_other_token() {
     } else {
         error_message = "RPAREN_T expected";
         lex->ReportError(error_message);
-        token = lex->GetToken(); // HERES ANOTHER
     }
   }
 
@@ -667,7 +666,6 @@ void SyntacticalAnalyzer::define() {
       } else {
           error_message = "RPAREN_T expected";
           lex->ReportError(error_message);
-          token = lex->GetToken();
       }
     } else {
         error_message = "'" + lex->GetLexeme() + "'" + " unexpected";
@@ -817,7 +815,7 @@ void SyntacticalAnalyzer::more_tokens() {
     // apply rule 15
     // <more_tokens> -> {}
     write_project_rule(15);
-  } else if (any_other) { // doing this to prevent uneccessary calls to is_action()
+  } else if (any_other) {
     // apply rule 14
     // <more_tokens> -> <any_other_token> <more_tokens>
     write_project_rule(14);
@@ -885,6 +883,7 @@ void SyntacticalAnalyzer::program() {
       } else {
           error_message = "LPAREN_T expected";
           lex->ReportError(error_message);
+	  token = lex->GetToken();
       }
       more_defines();
       if (token == EOF_T) {
@@ -938,7 +937,6 @@ void SyntacticalAnalyzer::stmt() {
     } else {
         error_message = "RPAREN_T expected";
         lex->ReportError(error_message);
-        token = lex->GetToken();
     }
   }
 
@@ -1042,7 +1040,6 @@ void SyntacticalAnalyzer::stmt_pair_body() {
     } else {
       error_message = "RPAREN_T expected";
       lex->ReportError(error_message);
-      token = lex->GetToken();
     }
   }
 
@@ -1058,7 +1055,6 @@ void SyntacticalAnalyzer::stmt_pair_body() {
     } else {
       error_message = "RPAREN_T expected";
       lex->ReportError(error_message);
-      token = lex->GetToken();
     }
     stmt_pair();
   }
