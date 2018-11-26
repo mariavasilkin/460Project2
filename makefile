@@ -66,7 +66,20 @@ submit : Project2.cpp LexicalAnalyzer.h LexicalAnalyzer.cpp SyntacticalAnalyzer.
 	cp LexicalAnalyzer.cpp WP2
 	cp SyntacticalAnalyzer.h WP2
 	cp SyntacticalAnalyzer.cpp WP2
-	cp nonTerminals WP2
+	cp action.cpp WP2
+	cp define.cpp WP2
+	cp literal.cpp WP2
+	cp more_tokens.cpp WP2
+	cp program.cpp WP2
+	cp stmt.cpp WP2
+	cp stmt_pair_body.cpp WP2
+	cp any_other_token.cpp WP2
+	cp else_part.cpp WP2
+	cp more_defines.cpp WP2
+	cp param_list.cpp WP2
+	cp quoted_lit.cpp WP2
+	cp stmt_list.cpp WP2
+	cp stmt_pair.cpp WP2
 	cp makefile WP2
 	cp README.txt WP2
 	tar cfvz WP2.tgz WP2
