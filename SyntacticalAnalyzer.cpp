@@ -1,3 +1,12 @@
+/***********************************************************************************
+Author: Maria Vasilkin, Dylan Marcus, John Salman
+Assignment: CS460 Project 2
+Date: 11/25/18
+File: SyntacticalAnalyzer.cpp
+Description: Implementation of SyntacticalAnalyzer class methods and private functions.
+
+***********************************************************************************/
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
