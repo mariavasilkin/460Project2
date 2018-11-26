@@ -59,28 +59,28 @@ clean :
 	rm *.o P2.out *.gch
 
 submit : Project2.cpp LexicalAnalyzer.h LexicalAnalyzer.cpp SyntacticalAnalyzer.h SyntacticalAnalyzer.cpp action.cpp define.cpp literal.cpp more_tokens.cpp program.cpp stmt.cpp stmt_pair_body.cpp any_other_token.cpp else_part.cpp more_defines.cpp param_list.cpp quoted_lit.cpp stmt_list.cpp stmt_pair.cpp  makefile README.txt
-	rm -rf WP2
-	mkdir WP2
-	cp Project2.cpp WP2
-	cp LexicalAnalyzer.h WP2
-	cp LexicalAnalyzer.cpp WP2
-	cp SyntacticalAnalyzer.h WP2
-	cp SyntacticalAnalyzer.cpp WP2
-	cp action.cpp WP2
-	cp define.cpp WP2
-	cp literal.cpp WP2
-	cp more_tokens.cpp WP2
-	cp program.cpp WP2
-	cp stmt.cpp WP2
-	cp stmt_pair_body.cpp WP2
-	cp any_other_token.cpp WP2
-	cp else_part.cpp WP2
-	cp more_defines.cpp WP2
-	cp param_list.cpp WP2
-	cp quoted_lit.cpp WP2
-	cp stmt_list.cpp WP2
-	cp stmt_pair.cpp WP2
-	cp makefile WP2
-	cp README.txt WP2
-	tar cfvz WP2.tgz WP2
-	cp WP2.tgz ~tiawatts/cs460drop
+	rm -rf TeamWP2
+	mkdir TeamWP2
+	cp Project2.cpp TeamWP2
+	cp LexicalAnalyzer.h TeamWP2
+	cp LexicalAnalyzer.cpp TeamWP2
+	cp SyntacticalAnalyzer.h TeamWP2
+	cp SyntacticalAnalyzer.cpp TeamWP2
+	cp action.cpp TeamWP2
+	cp define.cpp TeamWP2
+	cp literal.cpp TeamWP2
+	cp more_tokens.cpp TeamWP2
+	cp program.cpp TeamWP2
+	cp stmt.cpp TeamWP2
+	cp stmt_pair_body.cpp TeamWP2
+	cp any_other_token.cpp TeamWP2
+	cp else_part.cpp TeamWP2
+	cp more_defines.cpp TeamWP2
+	cp param_list.cpp TeamWP2
+	cp quoted_lit.cpp TeamWP2
+	cp stmt_list.cpp TeamWP2
+	cp stmt_pair.cpp TeamWP2
+	cp makefile TeamWP2
+	cp README.txt TeamWP2
+	tar cfvz TeamWP2.tgz TeamWP2
+	cp TeamWP2.tgz ~tiawatts/cs460drop
